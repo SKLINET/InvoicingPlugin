@@ -15,6 +15,7 @@ namespace Sylius\InvoicingPlugin\Factory;
 
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\InvoicingPlugin\Entity\LineItemInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
 
 interface LineItemFactoryInterface extends FactoryInterface
 {
@@ -25,8 +26,10 @@ interface LineItemFactoryInterface extends FactoryInterface
         int $subtotal,
         int $taxTotal,
         int $total,
+        int $adjustmentPromotionTotal,
         ?string $variantName = null,
         ?string $variantCode = null,
-        ?string $taxRate = null
+        ?string $taxRate = null,
+        ?string $taxRateCode = null
     ): LineItemInterface;
 }

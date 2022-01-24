@@ -34,4 +34,8 @@ interface BillingDataInterface
     public function provinceName(): ?string;
 
     public function company(): ?string;
+
+    public function companyNumber(): ?string;
+
+    public function companyVatNumber(): string;
 }

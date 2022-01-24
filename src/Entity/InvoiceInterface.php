@@ -35,6 +35,8 @@ interface InvoiceInterface extends ResourceInterface
 
     public function issuedAt(): \DateTimeInterface;
 
+    public function dueDateAt(): \DateTimeInterface;
+
     public function billingData(): BillingDataInterface;
 
     public function currencyCode(): string;
@@ -48,6 +50,8 @@ interface InvoiceInterface extends ResourceInterface
     public function taxItems(): Collection;
 
     public function subtotal(): int;
+
+    public function adjustmentPromotiionTotal(): int;
 
     public function taxesTotal(): int;
 

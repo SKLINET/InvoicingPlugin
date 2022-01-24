@@ -24,6 +24,7 @@ use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 use Sylius\InvoicingPlugin\Factory\BillingDataFactoryInterface;
 use Sylius\InvoicingPlugin\Factory\InvoiceFactoryInterface;
 use Sylius\InvoicingPlugin\Factory\InvoiceShopBillingDataFactoryInterface;
+use Sylius\Component\Core\Model\AdjustmentInterface;
 
 final class InvoiceGenerator implements InvoiceGeneratorInterface
 {
@@ -74,6 +75,8 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
         $paymentState = $order->getPaymentState() === OrderPaymentStates::STATE_PAID ?
             InvoiceInterface::PAYMENT_STATE_COMPLETED : InvoiceInterface::PAYMENT_STATE_PENDING;
 
+        $dueDateAt = $date->modify('+14 days');
+
         return $this->invoiceFactory->createForData(
             $this->uuidInvoiceIdentifierGenerator->generate(),
             $this->sequentialInvoiceNumberGenerator->generate(),
@@ -90,7 +93,9 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $this->taxItemsConverter->convert($order),
             $channel,
             $paymentState,
-            $this->invoiceShopBillingFactory->createFromChannel($channel)
+            $this->invoiceShopBillingFactory->createFromChannel($channel),
+            $dueDateAt,
+            $order->getAdjustmentsTotal(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)
         );
     }
 }

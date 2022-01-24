@@ -23,6 +23,7 @@ use Sylius\InvoicingPlugin\Factory\LineItemFactoryInterface;
 use Sylius\InvoicingPlugin\Provider\TaxRatePercentageProviderInterface;
 use Webmozart\Assert\Assert;
 
+
 final class ShippingAdjustmentsToLineItemsConverter implements LineItemsConverterInterface
 {
     private TaxRatePercentageProviderInterface $taxRatePercentageProvider;
@@ -60,6 +61,14 @@ final class ShippingAdjustmentsToLineItemsConverter implements LineItemsConverte
         $taxAdjustment = $this->getShipmentTaxAdjustment($shipment);
         $taxAmount = $taxAdjustment !== null ? $taxAdjustment->getAmount() : 0;
         $netValue = $grossValue - $taxAmount;
+        // Tax rate code
+        $taxRateCode = null;
+
+        if($taxAdjustment) {
+            $details = $taxAdjustment->getDetails();
+            $taxRateCode = $details['taxRateCode'];
+        }
+
 
         return $this->lineItemFactory->createWithData(
             $shippingAdjustment->getLabel(),
@@ -68,9 +77,11 @@ final class ShippingAdjustmentsToLineItemsConverter implements LineItemsConverte
             $netValue,
             $taxAmount,
             $grossValue,
+            $shipment->getAdjustmentsTotal(AdjustmentInterface::ORDER_SHIPPING_PROMOTION_ADJUSTMENT),
             null,
             null,
-            $this->taxRatePercentageProvider->provideFromAdjustable($shipment)
+            $this->taxRatePercentageProvider->provideFromAdjustable($shipment),
+            $taxRateCode
         );
     }
 

@@ -28,11 +28,15 @@ class Invoice implements InvoiceInterface
 
     protected \DateTimeInterface $issuedAt;
 
+    protected \DateTimeInterface $dueDateAt;
+
     protected BillingDataInterface $billingData;
 
     protected string $currencyCode;
 
     protected string $localeCode;
+
+    protected int $adjustmentPromotionTotal;
 
     protected int $total;
 
@@ -61,7 +65,9 @@ class Invoice implements InvoiceInterface
         Collection $taxItems,
         ChannelInterface $channel,
         string $paymentState,
-        InvoiceShopBillingDataInterface $shopBillingData
+        InvoiceShopBillingDataInterface $shopBillingData,
+        \DateTimeInterface $dueDateAt,
+        int $adjustmentPromotionTotal
     ) {
         $this->id = $id;
         $this->number = $number;
@@ -76,6 +82,8 @@ class Invoice implements InvoiceInterface
         $this->channel = $channel;
         $this->paymentState = $paymentState;
         $this->shopBillingData = $shopBillingData;
+        $this->dueDateAt = $dueDateAt;
+        $this->adjustmentPromotionTotal = $adjustmentPromotionTotal;
 
         /** @var LineItemInterface $lineItem */
         foreach ($lineItems as $lineItem) {
@@ -118,6 +126,11 @@ class Invoice implements InvoiceInterface
         return clone $this->issuedAt;
     }
 
+    public function dueDateAt():\DateTimeInterface
+    {
+        return $this->dueDateAt;
+    }
+
     public function billingData(): BillingDataInterface
     {
         return $this->billingData;
@@ -146,6 +159,11 @@ class Invoice implements InvoiceInterface
     public function taxItems(): Collection
     {
         return $this->taxItems;
+    }
+
+    public function adjustmentPromotiionTotal(): int
+    {
+        return $this->adjustmentPromotionTotal;
     }
 
     public function subtotal(): int

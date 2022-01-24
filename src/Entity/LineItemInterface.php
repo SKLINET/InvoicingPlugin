@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\InvoicingPlugin\Entity;
 
+use Sylius\Component\Core\Model\OrderItemInterface;
+
 interface LineItemInterface
 {
     public function id();
@@ -34,6 +36,10 @@ interface LineItemInterface
     public function subtotal(): int;
 
     public function taxRate(): ?string;
+
+    public function taxRateCode(): ?string;
+
+    public function adjustmentPromotionTotal(): int;
 
     public function taxTotal(): int;
 

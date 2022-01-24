@@ -38,6 +38,10 @@ class BillingData implements BillingDataInterface, ResourceInterface
 
     protected string $postcode;
 
+    private ?string $companyNumber;
+
+    private ?string $companyVatNumber;
+
     public function __construct(
         string $firstName,
         string $lastName,
@@ -47,7 +51,9 @@ class BillingData implements BillingDataInterface, ResourceInterface
         string $postcode,
         ?string $provinceCode = null,
         ?string $provinceName = null,
-        ?string $company = null
+        ?string $company = null,
+        ?string $companyNumber = null,
+        ?string $companyVatNumber = null
     ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -58,6 +64,8 @@ class BillingData implements BillingDataInterface, ResourceInterface
         $this->provinceCode = $provinceCode;
         $this->provinceName = $provinceName;
         $this->company = $company;
+        $this->companyNumber = $companyNumber;
+        $this->companyVatNumber = $companyVatNumber;
     }
 
     public function getId(): int
@@ -114,4 +122,16 @@ class BillingData implements BillingDataInterface, ResourceInterface
     {
         return $this->company;
     }
+
+    public function companyNumber(): ?string
+    {
+        return $this->companyNumber;
+    }
+
+    public function companyVatNumber(): string
+    {
+        return $this->companyVatNumber;
+    }
+
+
 }

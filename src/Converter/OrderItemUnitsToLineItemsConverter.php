@@ -20,6 +20,8 @@ use Sylius\InvoicingPlugin\Entity\LineItemInterface;
 use Sylius\InvoicingPlugin\Factory\LineItemFactoryInterface;
 use Sylius\InvoicingPlugin\Provider\TaxRatePercentageProviderInterface;
 use Webmozart\Assert\Assert;
+use Sylius\Component\Core\Model\AdjustmentInterface;
+
 
 final class OrderItemUnitsToLineItemsConverter implements LineItemsConverterInterface
 {
@@ -62,6 +64,17 @@ final class OrderItemUnitsToLineItemsConverter implements LineItemsConverterInte
 
         $variant = $item->getVariant();
 
+        // Tax rate code
+        $taxRateCode = null;
+        $taxAdjustments = $unit->getAdjustments(AdjustmentInterface::TAX_ADJUSTMENT);
+        /** @var AdjustmentInterface|null $taxAdjustment */
+        $taxAdjustment = $taxAdjustments->first();
+
+        if($taxAdjustment) {
+            $details = $taxAdjustment->getDetails();
+            $taxRateCode = $details['taxRateCode'];
+        }
+
         return $this->lineItemFactory->createWithData(
             $productName,
             1,
@@ -69,9 +82,11 @@ final class OrderItemUnitsToLineItemsConverter implements LineItemsConverterInte
             $netValue,
             $taxAmount,
             $grossValue,
+            $item->getAdjustmentsTotal('order_item_discount'),
             $item->getVariantName(),
             $variant !== null ? $variant->getCode() : null,
-            $this->taxRatePercentageProvider->provideFromAdjustable($unit)
+            $this->taxRatePercentageProvider->provideFromAdjustable($unit),
+            $taxRateCode
         );
     }
 

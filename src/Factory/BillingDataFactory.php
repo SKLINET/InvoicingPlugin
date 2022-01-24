@@ -50,7 +50,11 @@ final class BillingDataFactory implements BillingDataFactoryInterface
             $address->getPostcode(),
             $address->getProvinceCode(),
             $address->getProvinceName(),
-            $address->getCompany()
+            $address->getCompany(),
+            // CompanyId
+            null,
+            // CompanyVatNumber
+            null
         );
     }
 }

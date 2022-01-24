@@ -1,6 +1,7 @@
 /vendor/
 /node_modules/
 /composer.lock
+.idea
 
 /.phpunit.result.cache
 /behat.yml

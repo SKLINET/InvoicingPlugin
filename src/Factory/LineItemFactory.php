@@ -16,6 +16,8 @@ namespace Sylius\InvoicingPlugin\Factory;
 use Sylius\Component\Resource\Exception\UnsupportedMethodException;
 use Sylius\InvoicingPlugin\Entity\LineItem;
 use Sylius\InvoicingPlugin\Entity\LineItemInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
+
 
 final class LineItemFactory implements LineItemFactoryInterface
 {
@@ -45,9 +47,11 @@ final class LineItemFactory implements LineItemFactoryInterface
         int $subtotal,
         int $taxTotal,
         int $total,
+        int $adjustmentPromotionTotal,
         ?string $variantName = null,
         ?string $variantCode = null,
-        ?string $taxRate = null
+        ?string $taxRate = null,
+        ?string $taxRateCode = null
     ): LineItemInterface {
         return new $this->className(
             $name,
@@ -56,9 +60,11 @@ final class LineItemFactory implements LineItemFactoryInterface
             $subtotal,
             $taxTotal,
             $total,
+            $adjustmentPromotionTotal,
             $variantName,
             $variantCode,
-            $taxRate
+            $taxRate,
+            $taxRateCode
         );
     }
 }

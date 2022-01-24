@@ -6,8 +6,10 @@
 
         <field name="number" column="number" />
         <field name="issuedAt" column="issued_at" type="datetime" />
+        <field name="dueDateAt" column="due_date_at" type="datetime" />
         <field name="currencyCode" column="currency_code" length="3" />
         <field name="localeCode" column="locale_code" />
+        <field name="adjustmentPromotionTotal" column="adjustment_promotion_total" type="integer" />
         <field name="total" column="total" type="integer" />
         <field name="paymentState" column="payment_state" />
 

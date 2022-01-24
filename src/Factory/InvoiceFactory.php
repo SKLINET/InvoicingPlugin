@@ -53,7 +53,9 @@ final class InvoiceFactory implements InvoiceFactoryInterface
         Collection $taxItems,
         ChannelInterface $channel,
         string $paymentState,
-        InvoiceShopBillingDataInterface $shopBillingData = null
+        InvoiceShopBillingDataInterface $shopBillingData = null,
+        \DateTimeInterface $dueDateAt,
+        int $adjustmentPromotionTotal
     ): InvoiceInterface {
         return new $this->className(
             $id,
@@ -68,7 +70,9 @@ final class InvoiceFactory implements InvoiceFactoryInterface
             $taxItems,
             $channel,
             $paymentState,
-            $shopBillingData ?? $this->invoiceShopBillingDataFactory->createNew()
+            $shopBillingData ?? $this->invoiceShopBillingDataFactory->createNew(),
+            $dueDateAt,
+            $adjustmentPromotionTotal
         );
     }
 }

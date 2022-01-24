@@ -15,6 +15,8 @@ namespace Sylius\InvoicingPlugin\Entity;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\InvoicingPlugin\Exception\LineItemsCannotBeMerged;
+use Sylius\Component\Core\Model\OrderItemInterface;
+
 
 /** @final */
 class LineItem implements LineItemInterface, ResourceInterface
@@ -42,6 +44,10 @@ class LineItem implements LineItemInterface, ResourceInterface
 
     protected int $total;
 
+    private ?string $taxRateCode;
+
+    private int $adjustmentPromotionTotal;
+
     public function __construct(
         string $name,
         int $quantity,
@@ -49,9 +55,11 @@ class LineItem implements LineItemInterface, ResourceInterface
         int $subtotal,
         int $taxTotal,
         int $total,
+        int $adjustmentPromotionTotal,
         ?string $variantName = null,
         ?string $variantCode = null,
-        ?string $taxRate = null
+        ?string $taxRate = null,
+        ?string $taxRateCode = null
     ) {
         $this->name = $name;
         $this->quantity = $quantity;
@@ -62,6 +70,8 @@ class LineItem implements LineItemInterface, ResourceInterface
         $this->variantName = $variantName;
         $this->variantCode = $variantCode;
         $this->taxRate = $taxRate;
+        $this->taxRateCode = $taxRateCode;
+        $this->adjustmentPromotionTotal = $adjustmentPromotionTotal;
     }
 
     public function getId()
@@ -117,6 +127,16 @@ class LineItem implements LineItemInterface, ResourceInterface
     public function taxRate(): ?string
     {
         return $this->taxRate;
+    }
+
+    public function taxRateCode(): ?string
+    {
+        return $this->taxRateCode;
+    }
+
+    public function adjustmentPromotionTotal(): int
+    {
+        return $this->adjustmentPromotionTotal;
     }
 
     public function taxTotal(): int
