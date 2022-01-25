@@ -5,8 +5,16 @@
 {% set logoPath = invoiceLogoPath %}
 
 {% block header %}
-    <strong>{{ 'sylius_invoicing_plugin.ui.issued_at'|trans([], 'messages', invoice.localeCode) }}:</strong>
-    {{ invoice.issuedAt|date('Y-m-d H:i:s') }}
+    <div>
+        <strong>{{ 'sylius_invoicing_plugin.ui.issued_at'|trans([], 'messages', invoice.localeCode) }}:</strong>
+        {{ invoice.issuedAt|date('d.m.Y H:i:s') }}
+    </div>
+    {% if invoice.dueDateAt %}
+        <div>
+            <strong>{{ 'sylius_invoicing_plugin.ui.due_date_at'|trans([], 'messages', invoice.localeCode) }}:</strong>
+            {{ invoice.dueDateAt|date('d.m.Y') }}
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block buyer %}
@@ -59,8 +67,8 @@
                 <td><strong>{{ item.name }}</strong> {% if item.variantName is not null %}({{ item.variantName }}){% endif %}</td>
                 <td class="text-right">{{ item.quantity }}</td>
                 <td class="text-right">{{ '%0.2f'|format(item.unitPrice/100) }}</td>
-                <td class="text-right">{{ '%0.2f'|format(item.adjustmentUnitPromotion) }}</td>
-                <td class="text-right">{{ '%0.2f'|format(item.discountedUnitPrice) }}</td>
+                <td class="text-right">{{ '%0.2f'|format(item.adjustmentUnitPromotion/100) }}</td>
+                <td class="text-right">{{ '%0.2f'|format(item.discountedUnitPrice/100) }}</td>
                 <td class="text-right">{{ '%0.2f'|format(item.subtotal/100) }}</td>
                 <td class="text-right">{% if item.taxRate is null %}0%{% else %}{{ item.taxRate }}{% endif %}</td>
                 <td class="text-right">{{ '%0.2f'|format(item.taxTotal/100) }}</td>
@@ -74,27 +82,37 @@
         </tr>
 
         <tr>
-            <td class="border-0" colspan="7"></td>
+            <td class="border-0" colspan="6"></td>
             <td class="text-right bg-gray" colspan="2">{{ 'sylius_invoicing_plugin.ui.net_total'|trans([], 'messages', invoice.localeCode) }}:</td>
-            <td class="text-right bg-gray">{{ '%0.2f'|format(invoice.subtotal/100) }}</td>
+            <td class="text-right bg-gray" colspan="2">{{ '%0.2f'|format(invoice.subtotal/100) }}</td>
             <td class="text-right bg-gray">{{ invoice.currencyCode }}</td>
         </tr>
 
+        {% if invoice.adjustmentPromotionTotal > 0 %}
+            <tr>
+                <td class="border-0" colspan="6"></td>
+                <td class="text-right bg-gray" colspan="2">{{ 'sylius_invoicing_plugin.ui.invoice_discount'|trans([], 'messages', invoice.localeCode) }}:</td>
+                <td class="text-right bg-gray" colspan="2">{{ '%0.2f'|format(invoice.adjustmentPromotionTotal/100) }}</td>
+                <td class="text-right bg-gray">{{ invoice.currencyCode }}</td>
+            </tr>
+        {% endif %}
+
         <tr>
-            <td class="border-0" colspan="7"></td>
+            <td class="border-0" colspan="6"></td>
             <td class="text-right bg-gray" colspan="2" >{{ 'sylius_invoicing_plugin.ui.taxes_total'|trans([], 'messages', invoice.localeCode) }}:</td>
-            <td class="text-right bg-gray">{{ '%0.2f'|format(invoice.taxesTotal/100) }}</td>
+            <td class="text-right bg-gray" colspan="2">{{ '%0.2f'|format(invoice.taxesTotal/100) }}</td>
             <td class="text-right bg-gray">{{ invoice.currencyCode }}</td>
         </tr>
 
         <tr>
-            <td class="border-0" colspan="7"></td>
+            <td class="border-0" colspan="6"></td>
             <td class="text-right bg-gray" colspan="2"><strong>{{ 'sylius.ui.total'|trans([], 'messages', invoice.localeCode) }}:</strong></td>
-            <td class="text-right bg-gray"><strong>{{ '%0.2f'|format(invoice.total/100) }}</strong></td>
+            <td class="text-right bg-gray" colspan="2"><strong>{{ '%0.2f'|format(invoice.total/100) }}</strong></td>
             <td class="text-right bg-gray"><strong>{{ invoice.currencyCode }}</strong></td>
         </tr>
+
         <tr>
-            <td class="border-0" colspan="7"></td>
+            <td class="border-0" colspan="6"></td>
             <td class="text-right bg-gray" colspan="2">{{ 'sylius_invoicing_plugin.ui.payment.paid'|trans }}:</td>
             <td class="text-right bg-gray" colspan="2">
                 {% if invoice.paymentState() is constant('Sylius\\InvoicingPlugin\\Entity\\InvoiceInterface::PAYMENT_STATE_COMPLETED') %}
@@ -103,6 +121,7 @@
                     {{ 'sylius_invoicing_plugin.ui.payment.no'|trans }}
                 {% endif %}
             </td>
+            <td class="text-right bg-gray"></td>
         </tr>
 
         {% if invoice.taxItems.count() > 0 %}

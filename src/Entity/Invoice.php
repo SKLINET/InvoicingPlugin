@@ -161,7 +161,7 @@ class Invoice implements InvoiceInterface
         return $this->taxItems;
     }
 
-    public function adjustmentPromotiionTotal(): int
+    public function adjustmentPromotionTotal(): int
     {
         return $this->adjustmentPromotionTotal;
     }

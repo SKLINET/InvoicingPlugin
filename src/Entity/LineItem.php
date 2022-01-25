@@ -121,7 +121,7 @@ class LineItem implements LineItemInterface, ResourceInterface
 
     public function discountedUnitPrice(): int
     {
-        return $this->unitPrice() - $this->adjustmentUnitPromotion();
+        return $this->unitPrice() + $this->adjustmentUnitPromotion();
     }
 
     public function subtotal(): int

@@ -51,7 +51,7 @@ interface InvoiceInterface extends ResourceInterface
 
     public function subtotal(): int;
 
-    public function adjustmentPromotiionTotal(): int;
+    public function adjustmentPromotionTotal(): int;
 
     public function taxesTotal(): int;
 
