@@ -46,7 +46,7 @@ class LineItem implements LineItemInterface, ResourceInterface
 
     private ?string $taxRateCode;
 
-    private int $adjustmentPromotionTotal;
+    private int $adjustmentUnitPromotion;
 
     public function __construct(
         string $name,
@@ -55,7 +55,7 @@ class LineItem implements LineItemInterface, ResourceInterface
         int $subtotal,
         int $taxTotal,
         int $total,
-        int $adjustmentPromotionTotal,
+        int $adjustmentUnitPromotion,
         ?string $variantName = null,
         ?string $variantCode = null,
         ?string $taxRate = null,
@@ -71,7 +71,7 @@ class LineItem implements LineItemInterface, ResourceInterface
         $this->variantCode = $variantCode;
         $this->taxRate = $taxRate;
         $this->taxRateCode = $taxRateCode;
-        $this->adjustmentPromotionTotal = $adjustmentPromotionTotal;
+        $this->adjustmentUnitPromotion = $adjustmentUnitPromotion;
     }
 
     public function getId()
@@ -119,6 +119,11 @@ class LineItem implements LineItemInterface, ResourceInterface
         return $this->unitPrice;
     }
 
+    public function discountedUnitPrice(): int
+    {
+        return $this->unitPrice() - $this->adjustmentUnitPromotion();
+    }
+
     public function subtotal(): int
     {
         return $this->subtotal;
@@ -134,9 +139,14 @@ class LineItem implements LineItemInterface, ResourceInterface
         return $this->taxRateCode;
     }
 
+    public function adjustmentUnitPromotion(): int
+    {
+        return $this->adjustmentUnitPromotion;
+    }
+
     public function adjustmentPromotionTotal(): int
     {
-        return $this->adjustmentPromotionTotal;
+        return $this->adjustmentUnitPromotion() * $this->quantity();
     }
 
     public function taxTotal(): int

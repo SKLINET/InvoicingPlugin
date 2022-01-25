@@ -33,11 +33,15 @@ interface LineItemInterface
 
     public function unitPrice(): int;
 
+    public function discountedUnitPrice(): int;
+
     public function subtotal(): int;
 
     public function taxRate(): ?string;
 
     public function taxRateCode(): ?string;
+
+    public function adjustmentUnitPromotion(): int;
 
     public function adjustmentPromotionTotal(): int;
 

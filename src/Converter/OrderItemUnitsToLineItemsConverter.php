@@ -56,7 +56,14 @@ final class OrderItemUnitsToLineItemsConverter implements LineItemsConverterInte
 
         $grossValue = $unit->getTotal();
         $taxAmount = $unit->getTaxTotal();
+        $unitPrice = $grossValue - $taxAmount;
         $netValue = $grossValue - $taxAmount;
+        // Discount
+        $discount = $item->getAdjustmentsTotal('order_item_discount');
+        $unitDiscount = $discount / $item->getQuantity();
+        //
+        $subTotal = $unitPrice + $unitDiscount;
+        $total = $subTotal + $taxAmount;
 
         /** @var string|null $productName */
         $productName = $item->getProductName();
@@ -79,10 +86,10 @@ final class OrderItemUnitsToLineItemsConverter implements LineItemsConverterInte
             $productName,
             1,
             $netValue,
-            $netValue,
+            $subTotal,
             $taxAmount,
-            $grossValue,
-            $item->getAdjustmentsTotal('order_item_discount'),
+            $total,
+            $unitDiscount,
             $item->getVariantName(),
             $variant !== null ? $variant->getCode() : null,
             $this->taxRatePercentageProvider->provideFromAdjustable($unit),

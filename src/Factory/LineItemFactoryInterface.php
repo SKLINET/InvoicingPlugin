@@ -26,7 +26,7 @@ interface LineItemFactoryInterface extends FactoryInterface
         int $subtotal,
         int $taxTotal,
         int $total,
-        int $adjustmentPromotionTotal,
+        int $adjustmentUnitPromotion,
         ?string $variantName = null,
         ?string $variantCode = null,
         ?string $taxRate = null,

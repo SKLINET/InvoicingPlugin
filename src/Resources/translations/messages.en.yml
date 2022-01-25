@@ -10,6 +10,8 @@ sylius_invoicing_plugin:
         invoices: 'Invoices'
         issued_at: 'Issued at'
         issued_for_order: 'Issued for order'
+        unit_discount: 'Unit discount'
+        unit_net_price_discounted: 'Discounted price'
         issued_from: 'Issued from'
         manage_invoices: 'Manage invoices'
         net_total: 'Net total'

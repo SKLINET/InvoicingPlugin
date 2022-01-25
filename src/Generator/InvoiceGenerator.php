@@ -95,7 +95,7 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $paymentState,
             $this->invoiceShopBillingFactory->createFromChannel($channel),
             $dueDateAt,
-            $order->getAdjustmentsTotal(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)
+            $order->getAdjustmentsTotal('order_discount')
         );
     }
 }
