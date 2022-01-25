@@ -37,5 +37,5 @@ interface BillingDataInterface
 
     public function companyNumber(): ?string;
 
-    public function companyVatNumber(): string;
+    public function taxId(): ?string;
 }

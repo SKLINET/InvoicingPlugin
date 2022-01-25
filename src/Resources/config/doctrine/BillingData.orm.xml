@@ -10,7 +10,7 @@
         <field name="lastName" column="last_name" />
         <field name="company" column="company" nullable="true" />
         <field name="companyNumber" column="company_number" nullable="true" />
-        <field name="companyVatNumber" column="company_vat_number" nullable="true" />
+        <field name="taxId" column="tax_id" nullable="true" />
         <field name="street" column="street" />
         <field name="city" column="city" />
         <field name="postcode" column="postcode" />

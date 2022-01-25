@@ -23,6 +23,8 @@ class InvoiceShopBillingData implements InvoiceShopBillingDataInterface, Resourc
 
     protected ?string $company = null;
 
+    protected ?string $companyNumber = null;
+
     protected ?string $taxId = null;
 
     protected ?string $countryCode = null;
@@ -43,6 +45,11 @@ class InvoiceShopBillingData implements InvoiceShopBillingDataInterface, Resourc
     public function getCompany(): ?string
     {
         return $this->company;
+    }
+
+    public function getCompanyNumber(): ?string
+    {
+        return $this->companyNumber;
     }
 
     public function getTaxId(): ?string
@@ -78,6 +85,11 @@ class InvoiceShopBillingData implements InvoiceShopBillingDataInterface, Resourc
     public function setCompany(?string $company): void
     {
         $this->company = $company;
+    }
+
+    public function setCompanyNumber(?string $companyNumber): void
+    {
+        $this->companyNumber = $companyNumber;
     }
 
     public function setTaxId(?string $taxId): void

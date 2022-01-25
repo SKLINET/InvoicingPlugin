@@ -54,6 +54,8 @@ final class InvoiceShopBillingDataFactory implements InvoiceShopBillingDataFacto
         $invoiceShopBillingData = $this->createNew();
 
         $invoiceShopBillingData->setCompany($shopBillingData->getCompany());
+        // TODO: shop customer number
+        $invoiceShopBillingData->setCompanyNumber(null);
         $invoiceShopBillingData->setTaxId($shopBillingData->getTaxId());
         $invoiceShopBillingData->setCountryCode($shopBillingData->getCountryCode());
         $invoiceShopBillingData->setStreet($shopBillingData->getStreet());

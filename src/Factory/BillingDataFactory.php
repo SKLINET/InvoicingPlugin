@@ -25,10 +25,12 @@ final class BillingDataFactory implements BillingDataFactoryInterface
     public function __construct(string $className)
     {
         if (!is_a($className, BillingData::class, true)) {
-            throw new \DomainException(sprintf(
-                'This factory requires %s or its descend to be used as billing data resource',
-                BillingData::class
-            ));
+            throw new \DomainException(
+                sprintf(
+                    'This factory requires %s or its descend to be used as billing data resource',
+                    BillingData::class
+                )
+            );
         }
 
         $this->className = $className;
@@ -52,9 +54,31 @@ final class BillingDataFactory implements BillingDataFactoryInterface
             $address->getProvinceName(),
             $address->getCompany(),
             // CompanyId
-            null,
-            // CompanyVatNumber
-            null
+            $this->getCompanyNumber($address),
+            // taxId
+            $this->getCompanyTaxId($address)
         );
+    }
+
+    private function getCompanyNumber(AddressInterface $address): ?string
+    {
+        $customer = $address->getCustomer();
+
+        if (method_exists($customer, 'getCompanyNumber')) {
+            return $customer->getCompanyNumber();
+        }
+
+        return null;
+    }
+
+    private function getCompanyTaxId(AddressInterface $address): ?string
+    {
+        $customer = $address->getCustomer();
+
+        if (method_exists($customer, 'getCompanyTaxNumber')) {
+            return $customer->getCompanyTaxNumber();
+        }
+
+        return null;
     }
 }

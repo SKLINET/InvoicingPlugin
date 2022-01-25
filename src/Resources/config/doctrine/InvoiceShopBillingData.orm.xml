@@ -12,6 +12,7 @@
         </id>
 
         <field name="company" nullable="true" />
+        <field name="companyNumber" column="company_number" nullable="true" />
         <field name="taxId" column="tax_id" nullable="true" />
         <field name="street" nullable="true" />
         <field name="city" nullable="true" />

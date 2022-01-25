@@ -17,6 +17,8 @@ interface InvoiceShopBillingDataInterface
 {
     public function getId();
 
+    public function getCompanyNumber(): ?string;
+
     public function getTaxId(): ?string;
 
     public function getCompany(): ?string;
@@ -32,6 +34,8 @@ interface InvoiceShopBillingDataInterface
     public function getRepresentative(): ?string;
 
     public function setCompany(?string $company): void;
+
+    public function setCompanyNumber(?string $number): void;
 
     public function setTaxId(?string $taxId): void;
 
