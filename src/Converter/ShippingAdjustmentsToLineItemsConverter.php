@@ -61,6 +61,12 @@ final class ShippingAdjustmentsToLineItemsConverter implements LineItemsConverte
         $taxAdjustment = $this->getShipmentTaxAdjustment($shipment);
         $taxAmount = $taxAdjustment !== null ? $taxAdjustment->getAmount() : 0;
         $netValue = $grossValue - $taxAmount;
+        // Discount
+        $discount = $shipment->getAdjustmentsTotal(AdjustmentInterface::ORDER_SHIPPING_PROMOTION_ADJUSTMENT);
+        //
+        $subTotal = $netValue + $discount;
+        $total = $subTotal + $taxAmount;
+
         // Tax rate code
         $taxRateCode = null;
 
@@ -74,10 +80,10 @@ final class ShippingAdjustmentsToLineItemsConverter implements LineItemsConverte
             $shippingAdjustment->getLabel(),
             1,
             $netValue,
-            $netValue,
+            $subTotal,
             $taxAmount,
-            $grossValue,
-            $shipment->getAdjustmentsTotal(AdjustmentInterface::ORDER_SHIPPING_PROMOTION_ADJUSTMENT),
+            $total,
+            $discount,
             null,
             null,
             $this->taxRatePercentageProvider->provideFromAdjustable($shipment),
