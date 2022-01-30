@@ -40,7 +40,7 @@ final class SequentialInvoiceNumberGenerator implements InvoiceNumberGenerator
         EntityManagerInterface $sequenceManager,
         DateTimeProvider $dateTimeProvider,
         int $startNumber = 1,
-        int $numberLength = 9
+        int $numberLength = 6
     ) {
         $this->sequenceRepository = $sequenceRepository;
         $this->sequenceFactory = $sequenceFactory;
@@ -52,8 +52,8 @@ final class SequentialInvoiceNumberGenerator implements InvoiceNumberGenerator
 
     public function generate(): string
     {
-        $invoiceIdentifierPrefix = $this->dateTimeProvider->__invoke()->format('Y/m') . '/';
-
+        $invoiceIdentifierPrefix = $this->dateTimeProvider->__invoke()->format('Y');
+        
         /** @var InvoiceSequenceInterface $sequence */
         $sequence = $this->getSequence();
 

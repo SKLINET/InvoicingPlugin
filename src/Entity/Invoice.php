@@ -20,7 +20,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 /** @final */
 class Invoice implements InvoiceInterface
 {
-    protected string $id;
+    protected int $id;
 
     protected string $number;
 
@@ -53,7 +53,6 @@ class Invoice implements InvoiceInterface
     protected InvoiceShopBillingDataInterface $shopBillingData;
 
     public function __construct(
-        string $id,
         string $number,
         OrderInterface $order,
         \DateTimeInterface $issuedAt,
@@ -69,7 +68,6 @@ class Invoice implements InvoiceInterface
         \DateTimeInterface $dueDateAt,
         int $adjustmentPromotionTotal
     ) {
-        $this->id = $id;
         $this->number = $number;
         $this->order = $order;
         $this->issuedAt = clone $issuedAt;
@@ -96,12 +94,12 @@ class Invoice implements InvoiceInterface
         }
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id();
     }
 
-    public function id(): string
+    public function id(): int
     {
         return $this->id;
     }
@@ -109,6 +107,11 @@ class Invoice implements InvoiceInterface
     public function number(): string
     {
         return $this->number;
+    }
+
+    public function vs(): string
+    {
+        return $this->number();
     }
 
     public function order(): OrderInterface

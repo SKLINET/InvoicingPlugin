@@ -24,9 +24,11 @@ interface InvoiceInterface extends ResourceInterface
 
     public const PAYMENT_STATE_PENDING = 'pending';
 
-    public function id(): string;
+    public function id(): int;
 
     public function number(): string;
+
+    public function vs(): string;
 
     public function order(): OrderInterface;
 

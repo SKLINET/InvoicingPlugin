@@ -23,7 +23,6 @@ use Sylius\InvoicingPlugin\Entity\InvoiceShopBillingDataInterface;
 interface InvoiceFactoryInterface
 {
     public function createForData(
-        string $id,
         string $number,
         OrderInterface $order,
         \DateTimeInterface $issuedAt,

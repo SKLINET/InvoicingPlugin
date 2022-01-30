@@ -41,7 +41,6 @@ final class InvoiceFactory implements InvoiceFactoryInterface
     }
 
     public function createForData(
-        string $id,
         string $number,
         OrderInterface $order,
         \DateTimeInterface $issuedAt,
@@ -58,7 +57,6 @@ final class InvoiceFactory implements InvoiceFactoryInterface
         int $adjustmentPromotionTotal
     ): InvoiceInterface {
         return new $this->className(
-            $id,
             $number,
             $order,
             $issuedAt,
