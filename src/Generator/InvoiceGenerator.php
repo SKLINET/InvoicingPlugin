@@ -19,6 +19,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\InvoicingPlugin\Converter\LineItemsConverterInterface;
+use Sylius\InvoicingPlugin\Converter\PaymentFeeAdjustmentsToLineItemsConverter;
 use Sylius\InvoicingPlugin\Converter\TaxItemsConverterInterface;
 use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 use Sylius\InvoicingPlugin\Factory\BillingDataFactoryInterface;
@@ -44,6 +45,8 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
 
     private TaxItemsConverterInterface $taxItemsConverter;
 
+    private PaymentFeeAdjustmentsToLineItemsConverter $paymentFeeAdjustmentsToLineItemsConverter;
+
     public function __construct(
         InvoiceIdentifierGenerator $uuidInvoiceIdentifierGenerator,
         InvoiceNumberGenerator $sequentialInvoiceNumberGenerator,
@@ -52,7 +55,8 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
         InvoiceShopBillingDataFactoryInterface $invoiceShopBillingFactory,
         LineItemsConverterInterface $orderItemUnitsToLineItemsConverter,
         LineItemsConverterInterface $shippingAdjustmentsToLineItemsConverter,
-        TaxItemsConverterInterface $taxItemsConverter
+        TaxItemsConverterInterface $taxItemsConverter,
+        PaymentFeeAdjustmentsToLineItemsConverter $paymentFeeAdjustmentsToLineItemsConverter
     ) {
         $this->uuidInvoiceIdentifierGenerator = $uuidInvoiceIdentifierGenerator;
         $this->sequentialInvoiceNumberGenerator = $sequentialInvoiceNumberGenerator;
@@ -62,6 +66,7 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
         $this->orderItemUnitsToLineItemsConverter = $orderItemUnitsToLineItemsConverter;
         $this->shippingAdjustmentsToLineItemsConverter = $shippingAdjustmentsToLineItemsConverter;
         $this->taxItemsConverter = $taxItemsConverter;
+        $this->paymentFeeAdjustmentsToLineItemsConverter = $paymentFeeAdjustmentsToLineItemsConverter;
     }
 
     public function generateForOrder(OrderInterface $order, \DateTimeInterface $date): InvoiceInterface
@@ -87,7 +92,8 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $order->getTotal(),
             new ArrayCollection(array_merge(
                 $this->orderItemUnitsToLineItemsConverter->convert($order),
-                $this->shippingAdjustmentsToLineItemsConverter->convert($order)
+                $this->shippingAdjustmentsToLineItemsConverter->convert($order),
+                $this->paymentFeeAdjustmentsToLineItemsConverter->convert($order)
             )),
             $this->taxItemsConverter->convert($order),
             $channel,

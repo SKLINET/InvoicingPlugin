@@ -14,6 +14,11 @@
             <argument type="service" id="sylius_invoicing_plugin.factory.line_item" />
         </service>
 
+        <service id="sylius_invoicing_plugin.converter.payment_fee_adjustments_to_line_items" class="Sylius\InvoicingPlugin\Converter\PaymentFeeAdjustmentsToLineItemsConverter">
+            <argument type="service" id="sylius_invoicing_plugin.provider.tax_rate_percentage" />
+            <argument type="service" id="sylius_invoicing_plugin.factory.line_item" />
+        </service>
+
         <service id="sylius_invoicing_plugin.converter.tax_items" class="Sylius\InvoicingPlugin\Converter\TaxItemsConverter">
             <argument type="service" id="sylius_invoicing_plugin.provider.tax_rate_percentage" />
             <argument type="service" id="sylius_invoicing_plugin.factory.tax_item" />

@@ -22,6 +22,7 @@
             <argument type="service" id="sylius_invoicing_plugin.converter.order_item_units_to_line_items" />
             <argument type="service" id="sylius_invoicing_plugin.converter.shipping_adjustments_to_line_items" />
             <argument type="service" id="sylius_invoicing_plugin.converter.tax_items" />
+            <argument type="service" id="sylius_invoicing_plugin.converter.payment_fee_adjustments_to_line_items" />
         </service>
 
         <service
