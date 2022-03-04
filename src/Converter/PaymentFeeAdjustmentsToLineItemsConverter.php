@@ -98,8 +98,12 @@ final class PaymentFeeAdjustmentsToLineItemsConverter implements LineItemsConver
         );
     }
 
-    private function getTaxRateFromPaymentFeeAdjustment(AdjustmentInterface $taxAdjustment): ?string
+    private function getTaxRateFromPaymentFeeAdjustment(?AdjustmentInterface $taxAdjustment): ?string
     {
+        if(!$taxAdjustment) {
+            return null;
+        }
+
         if(!isset($taxAdjustment->getDetails()['taxRateAmount'])) {
             return null;
         }
