@@ -38,4 +38,9 @@ interface BillingDataInterface
     public function companyNumber(): ?string;
 
     public function taxId(): ?string;
+
+    public function phoneNumber(): ?string;
+
+    public function email(): ?string;
+
 }

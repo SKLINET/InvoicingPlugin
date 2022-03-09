@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Sylius\InvoicingPlugin\Entity;
 
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\ProductVariant;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 
 interface LineItemInterface
 {
@@ -52,4 +54,6 @@ interface LineItemInterface
     public function merge(self $newLineItem): void;
 
     public function compare(self $lineItem): bool;
+
+    public function variant(): ?ProductVariantInterface;
 }

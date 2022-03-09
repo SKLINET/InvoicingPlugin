@@ -29,6 +29,16 @@
     {% if invoice.billingData.taxId %}
         {{ invoice.billingData.taxId }}<br/>
     {% endif %}
+    {% if invoice.billingData.email %}
+        <tr>
+            <td>{{ invoice.billingData.email }}</td>
+        </tr>
+    {% endif %}
+    {% if invoice.billingData.phoneNumber %}
+        <tr>
+            <td>{{ invoice.billingData.phoneNumber }}</td>
+        </tr>
+    {% endif %}
     {{ invoice.billingData.street }}<br/>
     {{ invoice.billingData.city }}<br/>
     {{ invoice.billingData.countryCode|sylius_country_name|upper }} {{ invoice.billingData.postcode }}

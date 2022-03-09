@@ -17,5 +17,7 @@
         <field name="countryCode" column="country_code" />
         <field name="provinceCode" column="province_code" nullable="true" />
         <field name="provinceName" column="province_name" nullable="true" />
+        <field name="phoneNumber" column="phone_number" nullable="true" />
+        <field name="email" column="email" nullable="true" />
     </mapped-superclass>
 </doctrine-mapping>

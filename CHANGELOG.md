@@ -1,5 +1,23 @@
 # CHANGELOG
 
+### v0.21.0 (2022-03-09)
+- Add phoneNumber and email column to the BillingData entity
+- Store nullable productVariant in LineItem entity
+- Support header and footer html content
+
+### v0.20.1 (2022-03-04)
+- Fee tax line item adjustment fix
+
+### v0.20.0 (2022-02-07)
+- Support payment fee line item
+
+### v0.19.0 (2022-01-25)
+- Extend BillingData entity with company id and tax id properties
+- Extend LineItem entity with taxRateCode, adjustmentPromotionTotal properties
+- Extend Invoice entity with dueDateAt, adjustmentPromotionTotal properties
+- Allow PHP version 7.4
+- Change default invoice variable symbol (number) generator
+
 ### v0.18.1 (2021-09-15)
 
 - [#250](https://github.com/Sylius/InvoicingPlugin/issues/250) [Maintenance] Remove wrong return types ([@lchrusciel](https://github.com/lchrusciel))

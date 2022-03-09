@@ -42,6 +42,10 @@ class BillingData implements BillingDataInterface, ResourceInterface
 
     private ?string $taxId;
 
+    protected ?string $phoneNumber;
+
+    protected ?string $email;
+
     public function __construct(
         string $firstName,
         string $lastName,
@@ -53,7 +57,9 @@ class BillingData implements BillingDataInterface, ResourceInterface
         ?string $provinceName = null,
         ?string $company = null,
         ?string $companyNumber = null,
-        ?string $taxId = null
+        ?string $taxId = null,
+        ?string $phoneNumber = null,
+        ?string $email = null
     ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -66,6 +72,8 @@ class BillingData implements BillingDataInterface, ResourceInterface
         $this->company = $company;
         $this->companyNumber = $companyNumber;
         $this->taxId = $taxId;
+        $this->phoneNumber = $phoneNumber;
+        $this->email = $email;
     }
 
     public function getId(): int
@@ -133,5 +141,14 @@ class BillingData implements BillingDataInterface, ResourceInterface
         return $this->taxId;
     }
 
+    public function phoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function email(): ?string
+    {
+        return $this->email;
+    }
 
 }

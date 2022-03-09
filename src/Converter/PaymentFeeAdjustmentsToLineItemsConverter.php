@@ -51,20 +51,27 @@ final class PaymentFeeAdjustmentsToLineItemsConverter implements LineItemsConver
         foreach ($order->getAdjustments(
             \Sklinet\SyliusPaymentFeePlugin\Model\AdjustmentInterface::PAYMENT_ADJUSTMENT
         ) as $paymentFeeAdjustment) {
-            $lineItems[] = $this->convertPaymentFeeAdjustmentToLineItem($paymentFeeAdjustment);
+            $lineItem = $this->convertPaymentFeeAdjustmentToLineItem($paymentFeeAdjustment);
+
+            if($lineItem) {
+                $lineItems[] = $this->convertPaymentFeeAdjustmentToLineItem($paymentFeeAdjustment);
+            }
         }
 
         return $lineItems;
     }
 
-    private function convertPaymentFeeAdjustmentToLineItem(AdjustmentInterface $paymentFeeAdjustment): LineItemInterface
+    private function convertPaymentFeeAdjustmentToLineItem(AdjustmentInterface $paymentFeeAdjustment): ?LineItemInterface
     {
         if(!method_exists($paymentFeeAdjustment, 'getPayment')) {
             throw new \InvalidArgumentException('Plugin "%s" need to be installed', 'SklinetSyliusPaymentFeePlugin');
         }
         /** @var PaymentInterface|null $shipment */
         $payment = $paymentFeeAdjustment->getPayment();
-        Assert::notNull($payment);
+
+        if(!$payment) {
+            return null;
+        }
 
         $grossValue = $paymentFeeAdjustment->getAmount();
         $taxAdjustment = $this->getPaymentFeeTaxAdjustment($payment, $paymentFeeAdjustment);
@@ -81,7 +88,6 @@ final class PaymentFeeAdjustmentsToLineItemsConverter implements LineItemsConver
             $details = $taxAdjustment->getDetails();
             $taxRateCode = $details['taxRateCode'];
         }
-
 
         return $this->lineItemFactory->createWithData(
             $paymentFeeAdjustment->getLabel(),

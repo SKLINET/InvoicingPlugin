@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\InvoicingPlugin\Entity;
 
+use Sylius\Component\Core\Model\ProductVariant;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\InvoicingPlugin\Exception\LineItemsCannotBeMerged;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -48,6 +50,8 @@ class LineItem implements LineItemInterface, ResourceInterface
 
     private int $adjustmentUnitPromotion;
 
+    private $variant;
+
     public function __construct(
         string $name,
         int $quantity,
@@ -59,7 +63,8 @@ class LineItem implements LineItemInterface, ResourceInterface
         ?string $variantName = null,
         ?string $variantCode = null,
         ?string $taxRate = null,
-        ?string $taxRateCode = null
+        ?string $taxRateCode = null,
+        ?ProductVariantInterface $variant = null
     ) {
         $this->name = $name;
         $this->quantity = $quantity;
@@ -72,6 +77,7 @@ class LineItem implements LineItemInterface, ResourceInterface
         $this->taxRate = $taxRate;
         $this->taxRateCode = $taxRateCode;
         $this->adjustmentUnitPromotion = $adjustmentUnitPromotion;
+        $this->variant = $variant;
     }
 
     public function getId()
@@ -157,6 +163,11 @@ class LineItem implements LineItemInterface, ResourceInterface
     public function total(): int
     {
         return $this->total;
+    }
+
+    public function variant(): ?ProductVariantInterface
+    {
+        return $this->variant;
     }
 
     public function merge(LineItemInterface $newLineItem): void

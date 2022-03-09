@@ -56,7 +56,9 @@ final class BillingDataFactory implements BillingDataFactoryInterface
             // CompanyId
             $this->getCompanyNumber($address),
             // taxId
-            $this->getCompanyTaxId($address)
+            $this->getCompanyTaxId($address),
+            $address->getPhoneNumber(),
+            $address->getCustomer() ? $address->getCustomer()->getEmail() : null
         );
     }
 
