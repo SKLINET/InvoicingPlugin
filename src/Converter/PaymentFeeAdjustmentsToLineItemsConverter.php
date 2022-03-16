@@ -73,9 +73,14 @@ final class PaymentFeeAdjustmentsToLineItemsConverter implements LineItemsConver
             return null;
         }
 
-        $grossValue = $paymentFeeAdjustment->getAmount();
+        $order = $payment->getOrder();
+
+        Assert::notNull($order, 'Payment fee need to have set a order to create invoice line item');
+
         $taxAdjustment = $this->getPaymentFeeTaxAdjustment($payment, $paymentFeeAdjustment);
-        $taxAmount = $taxAdjustment !== null ? $taxAdjustment->getAmount() : 0;
+        //
+        $grossValue = $order->getPaymentFeeTotal();
+        $taxAmount = $order->getPaymentFeeTaxTotal();
         $netValue = $grossValue - $taxAmount;
         //
         $subTotal = $netValue;
@@ -123,15 +128,11 @@ final class PaymentFeeAdjustmentsToLineItemsConverter implements LineItemsConver
     {
         $order = $payment->getOrder();
         Assert::notNull($order);
+        Assert::isInstanceOf($order, \Sklinet\SyliusPaymentFeePlugin\Model\OrderWithPaymentFeeInterface::class);
 
         // Find all order tax adjustments
-        foreach ($order->getAdjustments(AdjustmentInterface::TAX_ADJUSTMENT) as $taxAdjustment) {
-            if (
-                $taxAdjustment->getPayment() &&
-                $taxAdjustment->getPayment()->getId() == $adjustment->getPayment()->getId()
-            ) {
-                return $taxAdjustment;
-            }
+        foreach ($order->getPaymentFeeAdjustments(AdjustmentInterface::TAX_ADJUSTMENT) as $taxAdjustment) {
+            return $taxAdjustment;
         }
 
         return null;
