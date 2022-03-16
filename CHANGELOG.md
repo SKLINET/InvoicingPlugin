@@ -1,6 +1,6 @@
 # CHANGELOG
 
-### v0.21.0 (2022-03-09)
+### v0.20.2 (2022-03-09)
 - Add phoneNumber and email column to the BillingData entity
 - Store nullable productVariant in LineItem entity
 - Support header and footer html content
