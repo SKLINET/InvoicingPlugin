@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Sylius\InvoicingPlugin\Entity;
 
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\ProductVariant;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Core\Model\ShipmentInterface;
 
 interface LineItemInterface
 {
@@ -56,4 +58,9 @@ interface LineItemInterface
     public function compare(self $lineItem): bool;
 
     public function variant(): ?ProductVariantInterface;
+
+    public function payment(): ?PaymentInterface;
+
+    public function shipment(): ?ShipmentInterface;
+
 }

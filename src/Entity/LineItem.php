@@ -13,8 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\InvoicingPlugin\Entity;
 
+use Sylius\Component\Core\Model\Payment;
+use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\ProductVariant;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\InvoicingPlugin\Exception\LineItemsCannotBeMerged;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -50,7 +53,11 @@ class LineItem implements LineItemInterface, ResourceInterface
 
     private int $adjustmentUnitPromotion;
 
-    private $variant;
+    private ?ProductVariantInterface $variant;
+
+    private ?ShipmentInterface $shipment;
+
+    private ?Payment $payment;
 
     public function __construct(
         string $name,
@@ -64,7 +71,9 @@ class LineItem implements LineItemInterface, ResourceInterface
         ?string $variantCode = null,
         ?string $taxRate = null,
         ?string $taxRateCode = null,
-        ?ProductVariantInterface $variant = null
+        ?ProductVariantInterface $variant = null,
+        ?ShipmentInterface $shipment = null,
+        ?Payment $payment = null
     ) {
         $this->name = $name;
         $this->quantity = $quantity;
@@ -78,6 +87,8 @@ class LineItem implements LineItemInterface, ResourceInterface
         $this->taxRateCode = $taxRateCode;
         $this->adjustmentUnitPromotion = $adjustmentUnitPromotion;
         $this->variant = $variant;
+        $this->shipment = $shipment;
+        $this->payment = $payment;
     }
 
     public function getId()
@@ -168,6 +179,16 @@ class LineItem implements LineItemInterface, ResourceInterface
     public function variant(): ?ProductVariantInterface
     {
         return $this->variant;
+    }
+
+    public function payment(): ?PaymentInterface
+    {
+        return $this->payment;
+    }
+
+    public function shipment(): ?ShipmentInterface
+    {
+        return $this->shipment;
     }
 
     public function merge(LineItemInterface $newLineItem): void

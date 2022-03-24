@@ -105,7 +105,10 @@ final class PaymentFeeAdjustmentsToLineItemsConverter implements LineItemsConver
             null,
             null,
             $this->getTaxRateFromPaymentFeeAdjustment($taxAdjustment),
-            $taxRateCode
+            $taxRateCode,
+            null,
+            null,
+            $payment
         );
     }
 

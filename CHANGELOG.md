@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v0.20.3 (2022-03-24)
+- Add shipment and payment to line item
+
+
 ### v0.20.2 (2022-03-09)
 - Add phoneNumber and email column to the BillingData entity
 - Store nullable productVariant in LineItem entity

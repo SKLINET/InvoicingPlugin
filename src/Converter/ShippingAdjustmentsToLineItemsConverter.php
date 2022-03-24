@@ -87,7 +87,10 @@ final class ShippingAdjustmentsToLineItemsConverter implements LineItemsConverte
             null,
             null,
             $this->taxRatePercentageProvider->provideFromAdjustable($shipment),
-            $taxRateCode
+            $taxRateCode,
+            null,
+            $shipment,
+            null
         );
     }
 

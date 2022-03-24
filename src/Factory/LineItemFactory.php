@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\InvoicingPlugin\Factory;
 
+use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Exception\UnsupportedMethodException;
 use Sylius\InvoicingPlugin\Entity\LineItem;
 use Sylius\InvoicingPlugin\Entity\LineItemInterface;
@@ -52,7 +54,9 @@ final class LineItemFactory implements LineItemFactoryInterface
         ?string $variantCode = null,
         ?string $taxRate = null,
         ?string $taxRateCode = null,
-        ?ProductVariantInterface $variant = null
+        ?ProductVariantInterface $variant = null,
+        ?ShipmentInterface $shipment = null,
+        ?PaymentInterface $payment = null
     ): LineItemInterface {
         return new $this->className(
             $name,
@@ -66,7 +70,9 @@ final class LineItemFactory implements LineItemFactoryInterface
             $variantCode,
             $taxRate,
             $taxRateCode,
-            $variant
+            $variant,
+            $shipment,
+            $payment
         );
     }
 }
