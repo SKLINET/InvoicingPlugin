@@ -205,6 +205,11 @@ class LineItem implements LineItemInterface, ResourceInterface
 
     public function compare(LineItemInterface $lineItem): bool
     {
+        // Always merge order item units
+        if ($this->variantCode() === $lineItem->variantCode() && $this->variantCode === $lineItem->variantCode()) {
+            return true;
+        }
+
         return
             $this->name() === $lineItem->name() &&
             $this->variantCode() === $lineItem->variantCode() &&
