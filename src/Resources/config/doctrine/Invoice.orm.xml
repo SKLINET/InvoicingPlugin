@@ -12,6 +12,7 @@
         <field name="currencyCode" column="currency_code" length="3" />
         <field name="localeCode" column="locale_code" />
         <field name="adjustmentPromotionTotal" column="adjustment_promotion_total" type="integer" />
+        <field name="totalRounding" column="total_rounding" type="integer" />
         <field name="total" column="total" type="integer" />
         <field name="paymentState" column="payment_state" />
 

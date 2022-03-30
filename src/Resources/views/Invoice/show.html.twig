@@ -82,6 +82,19 @@
                 {% endfor %}
                 </tbody>
                 <tfoot>
+                {% if invoice.totalRounding != 0 %}
+                    <tr>
+                        <th colspan="7" class="right aligned">
+                            <strong>{{ 'sylius_invoicing_plugin.ui.total_rounding'|trans }}</strong>
+                        </th>
+                        <th id="total-rounding" class="right aligned">
+                            {{ '%0.2f'|format(invoice.totalRounding/100) }}
+                        </th>
+                        <th>
+                            {{ invoice.currencyCode }}
+                        </th>
+                    </tr>
+                {% endif %}
                 <tr>
                     <th colspan="7" class="right aligned">
                         <strong>{{ 'sylius_invoicing_plugin.ui.net_total'|trans }}</strong>:

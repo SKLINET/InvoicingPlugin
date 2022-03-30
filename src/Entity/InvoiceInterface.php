@@ -45,6 +45,8 @@ interface InvoiceInterface extends ResourceInterface
 
     public function localeCode(): string;
 
+    public function totalRounding(): int;
+
     public function total(): int;
 
     public function lineItems(): Collection;

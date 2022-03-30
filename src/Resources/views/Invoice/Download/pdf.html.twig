@@ -123,6 +123,13 @@
 
         <tr>
             <td class="border-0" colspan="6"></td>
+            <td class="text-right bg-gray" colspan="2"><strong>{{ 'sylius.ui.total_rounding'|trans([], 'messages', invoice.localeCode) }}:</strong></td>
+            <td class="text-right bg-gray" colspan="2"><strong>{{ '%0.2f'|format(invoice.totalRounding/100) }}</strong></td>
+            <td class="text-right bg-gray"><strong>{{ invoice.currencyCode }}</strong></td>
+        </tr>
+
+        <tr>
+            <td class="border-0" colspan="6"></td>
             <td class="text-right bg-gray" colspan="2"><strong>{{ 'sylius.ui.total'|trans([], 'messages', invoice.localeCode) }}:</strong></td>
             <td class="text-right bg-gray" colspan="2"><strong>{{ '%0.2f'|format(invoice.total/100) }}</strong></td>
             <td class="text-right bg-gray"><strong>{{ invoice.currencyCode }}</strong></td>

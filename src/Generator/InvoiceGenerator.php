@@ -25,7 +25,6 @@ use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 use Sylius\InvoicingPlugin\Factory\BillingDataFactoryInterface;
 use Sylius\InvoicingPlugin\Factory\InvoiceFactoryInterface;
 use Sylius\InvoicingPlugin\Factory\InvoiceShopBillingDataFactoryInterface;
-use Sylius\Component\Core\Model\AdjustmentInterface;
 
 final class InvoiceGenerator implements InvoiceGeneratorInterface
 {
@@ -89,12 +88,15 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $this->billingDataFactory->createFromAddress($billingAddress),
             $order->getCurrencyCode(),
             $order->getLocaleCode(),
+            $this->getTotalRounding($order),
             $order->getTotal(),
-            new ArrayCollection(array_merge(
-                $this->orderItemUnitsToLineItemsConverter->convert($order),
-                $this->shippingAdjustmentsToLineItemsConverter->convert($order),
-                $this->paymentFeeAdjustmentsToLineItemsConverter->convert($order)
-            )),
+            new ArrayCollection(
+                array_merge(
+                    $this->orderItemUnitsToLineItemsConverter->convert($order),
+                    $this->shippingAdjustmentsToLineItemsConverter->convert($order),
+                    $this->paymentFeeAdjustmentsToLineItemsConverter->convert($order)
+                )
+            ),
             $this->taxItemsConverter->convert($order),
             $channel,
             $paymentState,
@@ -102,5 +104,19 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $dueDateAt,
             $order->getAdjustmentsTotal('order_discount')
         );
+    }
+
+    private function getTotalRounding(OrderInterface $order): int
+    {
+        // Check if sylius SklinetOrderRoundingPlugin is installed
+        if (!interface_exists('\Sklinet\SyliusOrderRoundingPlugin\Model\OrderWithRoundingInterface')) {
+            return 0;
+        }
+
+        if (!method_exists($order, 'getOrderRounding')) {
+            return 0;
+        }
+
+        return $order->getOrderRounding();
     }
 }

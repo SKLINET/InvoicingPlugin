@@ -29,6 +29,7 @@ interface InvoiceFactoryInterface
         BillingDataInterface $billingData,
         string $currencyCode,
         string $localeCode,
+        int $totalRounding,
         int $total,
         Collection $lineItems,
         Collection $taxItems,

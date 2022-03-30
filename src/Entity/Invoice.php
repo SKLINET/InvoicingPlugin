@@ -38,6 +38,8 @@ class Invoice implements InvoiceInterface
 
     protected int $adjustmentPromotionTotal;
 
+    protected int $totalRounding;
+
     protected int $total;
 
     /** @var Collection|LineItemInterface[] */
@@ -59,6 +61,7 @@ class Invoice implements InvoiceInterface
         BillingDataInterface $billingData,
         string $currencyCode,
         string $localeCode,
+        int $totalRounding,
         int $total,
         Collection $lineItems,
         Collection $taxItems,
@@ -74,6 +77,7 @@ class Invoice implements InvoiceInterface
         $this->billingData = $billingData;
         $this->currencyCode = $currencyCode;
         $this->localeCode = $localeCode;
+        $this->totalRounding = $totalRounding;
         $this->total = $total;
         $this->lineItems = $lineItems;
         $this->taxItems = $taxItems;
@@ -112,6 +116,11 @@ class Invoice implements InvoiceInterface
     public function vs(): string
     {
         return $this->number();
+    }
+
+    public function totalRounding(): int
+    {
+        return $this->totalRounding;
     }
 
     public function order(): OrderInterface
