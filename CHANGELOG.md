@@ -1,8 +1,14 @@
 # CHANGELOG
 
-### v0.20.3 (2022-03-24)
+### v0.20.5 (2022-03-31)
+- Support for invoice rounding (optional using plugin SklinetSyliusOrderRoundingPlugin)
+- Always merge order item units if units are same product variant
+
+### v0.20.4 (2022-03-24)
 - Add shipment and payment to line item
 
+### v0.20.3 (2022-03-16)
+- Fix payment fee
 
 ### v0.20.2 (2022-03-09)
 - Add phoneNumber and email column to the BillingData entity
