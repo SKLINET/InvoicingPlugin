@@ -1,8 +1,10 @@
 # CHANGELOG
 
-### v0.20.5 (2022-03-31)
+### v0.20.5 (2022-04-03)
 - Support for invoice rounding (optional using plugin SklinetSyliusOrderRoundingPlugin)
 - Always merge order item units if units are same product variant
+- Create invoice after order payment
+- New InvoiceCreated event dispatched after invoice creation
 
 ### v0.20.4 (2022-03-24)
 - Add shipment and payment to line item

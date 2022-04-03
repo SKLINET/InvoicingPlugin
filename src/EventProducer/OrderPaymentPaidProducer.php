@@ -60,6 +60,6 @@ final class OrderPaymentPaidProducer
         /** @var OrderInterface $order */
         $order = $payment->getOrder();
 
-        return null !== $order && null !== $this->invoiceRepository->findOneByOrder($order);
+        return true;
     }
 }

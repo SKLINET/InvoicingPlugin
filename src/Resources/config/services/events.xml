@@ -10,7 +10,7 @@
             <argument type="service" id="sylius_invoicing_plugin.repository.invoice" />
         </service>
 
-        <service id="sylius_invoicing_plugin.event_listener.order_placed" class="Sylius\InvoicingPlugin\EventListener\CreateInvoiceOnOrderPlacedListener">
+        <service id="sylius_invoicing_plugin.event_listener.order_placed" class="Sylius\InvoicingPlugin\EventListener\CreateInvoiceOnOrderPaymentPaidListener">
             <argument type="service" id="sylius_invoicing_plugin.creator.invoice" />
             <tag name="messenger.message_handler" bus="sylius.event_bus" />
         </service>
@@ -20,6 +20,12 @@
             <argument type="service" id="sylius_invoicing_plugin.date_time_provider" />
             <tag name="doctrine.event_listener" event="postPersist" />
             <tag name="doctrine.event_listener" event="postUpdate" />
+        </service>
+
+        <service id="sylius_invoicing_plugin.event_producer.invoice_created" class="Sylius\InvoicingPlugin\EventProducer\InvoiceCreatedProducer">
+            <argument type="service" id="sylius.event_bus" />
+            <argument type="service" id="sylius_invoicing_plugin.date_time_provider" />
+            <tag name="doctrine.event_listener" event="postPersist" />
         </service>
 
         <service id="sylius_invoicing_plugin.listener.order_payment_paid" class="Sylius\InvoicingPlugin\EventListener\OrderPaymentPaidListener">

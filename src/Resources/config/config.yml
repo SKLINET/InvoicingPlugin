@@ -20,6 +20,7 @@ winzou_state_machine:
                     on: ['complete']
                     do: ['@sylius_invoicing_plugin.event_producer.order_payment_paid', '__invoke']
                     args: ['object']
+                    priority: 0
 
 sylius_grid:
     templates:
