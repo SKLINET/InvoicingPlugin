@@ -77,8 +77,8 @@ final class BillingDataFactory implements BillingDataFactoryInterface
     {
         $customer = $address->getCustomer();
 
-        if (method_exists($customer, 'getCompanyTaxNumber')) {
-            return $customer->getCompanyTaxNumber();
+        if (method_exists($customer, 'getCompanyVat')) {
+            return $customer->getCompanyVat();
         }
 
         return null;
