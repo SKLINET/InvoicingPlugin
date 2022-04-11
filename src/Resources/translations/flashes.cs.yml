@@ -1,0 +1,3 @@
+sylius_invoicing_plugin:
+    invoice_resent_successfully: 'Faktura byla odeslana zákazníkovi'
+    invoice_generate_successfully: 'Faktura byla vygenerována'

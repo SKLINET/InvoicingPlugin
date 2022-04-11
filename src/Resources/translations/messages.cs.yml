@@ -19,6 +19,7 @@ sylius_invoicing_plugin:
         net_total: 'Bez DPH (celkem)'
         net_value: 'Bez DPH'
         total_rounding: 'Zaokrouhlení'
+        generate_invoice: 'Vytvořit fakturu'
         no: 'No.'
         order_number: 'Číslo objednávky'
         payment:

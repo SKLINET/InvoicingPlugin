@@ -12,10 +12,13 @@ class InvoiceCreated
 
     private \DateTimeInterface $date;
 
-    public function __construct(InvoiceInterface $invoice, \DateTimeInterface $date)
+    private $createdManually = false;
+
+    public function __construct(InvoiceInterface $invoice, \DateTimeInterface $date, bool $createdManually = false)
     {
         $this->invoice = $invoice;
         $this->date = $date;
+        $this->createdManually = $createdManually;
     }
 
     public function invoice(): InvoiceInterface
@@ -27,4 +30,10 @@ class InvoiceCreated
     {
         return clone $this->date;
     }
+
+    public function isCreatedManually(): bool
+    {
+        return $this->createdManually;
+    }
+
 }

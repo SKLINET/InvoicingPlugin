@@ -1,5 +1,8 @@
 # CHANGELOG
 
+### v0.20.6 (2022-04-10)
+- Generate invoice in administration
+
 ### v0.20.5 (2022-04-03)
 - Support for invoice rounding (optional using plugin SklinetSyliusOrderRoundingPlugin)
 - Always merge order item units if units are same product variant

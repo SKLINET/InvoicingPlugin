@@ -35,16 +35,17 @@ sylius_invoicing_plugin_admin_invoice_resend:
     defaults:
         _controller: sylius_invoicing_plugin.ui.action.resend_invoice
 
-sylius_invoicing_plugin_admin_order_invoices_partial:
-    path: /_partial/invoices/{orderNumber}/
+sylius_invoicing_plugin_admin_invoice_generate:
+    path: /invoices/{id}/generate
     methods: [GET]
     defaults:
-        _controller: sylius_invoicing_plugin.controller.invoice::indexAction
-        _sylius:
-            template: $template
-            repository:
-                method: findByOrderNumber
-                arguments: $orderNumber
+        _controller: sylius_invoicing_plugin.ui.action.generate_invoice
+
+sylius_invoicing_plugin_admin_order_invoices_partial:
+    path: /_partial/invoices/{id}/
+    methods: [GET]
+    defaults:
+        _controller: sylius_invoicing_plugin.ui.action.order_invoices
 
 sylius_invoicing_admin_order_show_by_number:
     path: /orders/by-number/{number}
