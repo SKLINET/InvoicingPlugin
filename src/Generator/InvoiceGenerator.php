@@ -79,7 +79,8 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
         $paymentState = $order->getPaymentState() === OrderPaymentStates::STATE_PAID ?
             InvoiceInterface::PAYMENT_STATE_COMPLETED : InvoiceInterface::PAYMENT_STATE_PENDING;
 
-        $dueDateAt = $date->modify('+14 days');
+        $dueDateAt = clone $date;
+        $dueDateAt = $dueDateAt->modify('+14 days');
 
         return $this->invoiceFactory->createForData(
             $this->sequentialInvoiceNumberGenerator->generate(),
