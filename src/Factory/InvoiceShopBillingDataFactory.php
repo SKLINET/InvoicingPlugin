@@ -16,6 +16,7 @@ namespace Sylius\InvoicingPlugin\Factory;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ShopBillingDataInterface;
 use Sylius\InvoicingPlugin\Entity\InvoiceShopBillingDataInterface;
+use Webmozart\Assert\Assert;
 
 final class InvoiceShopBillingDataFactory implements InvoiceShopBillingDataFactoryInterface
 {
@@ -49,13 +50,20 @@ final class InvoiceShopBillingDataFactory implements InvoiceShopBillingDataFacto
         return $this->createFromShopBillingData($shopBillingData);
     }
 
+    /**
+     * @param ShopBillingDataInterface|\Sklinet\SyliusExtendedChannelPlugin\Model\ShopBillingDataInterface $shopBillingData
+     * @return InvoiceShopBillingDataInterface
+     */
     public function createFromShopBillingData(ShopBillingDataInterface $shopBillingData): InvoiceShopBillingDataInterface
     {
+        Assert::isInstanceOf($shopBillingData, \Sklinet\SyliusExtendedChannelPlugin\Model\ShopBillingDataInterface::class);
+        //
         $invoiceShopBillingData = $this->createNew();
 
+        dd($shopBillingData->getCompanyNumber());
+
         $invoiceShopBillingData->setCompany($shopBillingData->getCompany());
-        // TODO: shop customer number
-        $invoiceShopBillingData->setCompanyNumber(null);
+        $invoiceShopBillingData->setCompanyNumber($shopBillingData->getCompanyNumber());
         $invoiceShopBillingData->setTaxId($shopBillingData->getTaxId());
         $invoiceShopBillingData->setCountryCode($shopBillingData->getCountryCode());
         $invoiceShopBillingData->setStreet($shopBillingData->getStreet());

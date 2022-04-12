@@ -4,11 +4,18 @@
     "keywords": ["sylius", "sylius-plugin", "symfony", "e-commerce", "invoicing"],
     "description": "Invoicing plugin for Sylius.",
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:SKLINET/sylius-extended-channel-plugin.git"
+        }
+    ],
     "require": {
         "php": "^7.4||^8.0",
         "dompdf/dompdf": "^1.2",
         "knplabs/knp-snappy-bundle": "^1.8",
         "ramsey/uuid": "^3.9",
+        "sklinet/sylius-extended-channel-plugin": "^0.1",
         "sylius/grid-bundle": "^1.7",
         "sylius/resource-bundle": "^1.6",
         "sylius/sylius": "^1.10",

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+### v0.20.7 (2022-04-12)
+- Dependency on SklinetSyliusExtendedChannelPlugin
+
 ### v0.20.6 (2022-04-10)
 - Generate invoice in administration
 
