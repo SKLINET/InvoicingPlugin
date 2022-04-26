@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\InvoicingPlugin;
 
+use Sylius\Component\Core\Model\OrderInterface;
+
 interface DateTimeProvider
 {
-    public function __invoke(): \DateTimeInterface;
+    public function __invoke(OrderInterface $order): \DateTimeInterface;
 }

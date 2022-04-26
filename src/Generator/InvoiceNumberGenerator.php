@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\InvoicingPlugin\Generator;
 
+use Sylius\Component\Core\Model\OrderInterface;
+
 interface InvoiceNumberGenerator
 {
-    public function generate(): string;
+    public function generate(OrderInterface $order): string;
 }

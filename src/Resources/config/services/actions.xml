@@ -25,6 +25,7 @@
             <argument type="service" id="twig" />
             <argument type="service" id="session" />
             <argument type="service" id="router" />
+            <argument type="service" id="sylius_invoicing_plugin.date_time_provider" />
         </service>
 
         <service id="sylius_invoicing_plugin.ui.action.order_invoices" class="Sylius\InvoicingPlugin\Ui\Action\Admin\OrderInvoicesAction">

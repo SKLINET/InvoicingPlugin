@@ -83,7 +83,7 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
         $dueDateAt = $dueDateAt->modify('+14 days');
 
         return $this->invoiceFactory->createForData(
-            $this->sequentialInvoiceNumberGenerator->generate(),
+            $this->sequentialInvoiceNumberGenerator->generate($order),
             $order,
             $date,
             $this->billingDataFactory->createFromAddress($billingAddress),

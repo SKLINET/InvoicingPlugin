@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\InvoicingPlugin;
 
+use Sylius\Component\Core\Model\OrderInterface;
+
 final class SystemDateTimeProvider implements DateTimeProvider
 {
-    public function __invoke(): \DateTimeInterface
+    public function __invoke(OrderInterface $order): \DateTimeInterface
     {
         return new \DateTimeImmutable('now');
     }

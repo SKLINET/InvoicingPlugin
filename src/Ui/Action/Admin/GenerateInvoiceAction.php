@@ -7,6 +7,7 @@ namespace Sylius\InvoicingPlugin\Ui\Action\Admin;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\InvoicingPlugin\Creator\InvoiceCreatorInterface;
+use Sylius\InvoicingPlugin\DateTimeProvider;
 use Sylius\InvoicingPlugin\Doctrine\ORM\InvoiceRepositoryInterface;
 use Sylius\InvoicingPlugin\Entity\InvoiceInterface;
 use Sylius\InvoicingPlugin\Event\InvoiceCreated;
@@ -23,6 +24,7 @@ class GenerateInvoiceAction
     private Session $session;
     private UrlGeneratorInterface $urlGenerator;
     private InvoiceCreatorInterface $invoiceCreator;
+    private DateTimeProvider $dateTimeProvider;
 
     public function __construct(
         InvoiceRepositoryInterface $invoiceRepository,
@@ -30,7 +32,8 @@ class GenerateInvoiceAction
         InvoiceCreatorInterface $invoiceCreator,
         Environment $twig,
         Session $session,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        DateTimeProvider $dateTimeProvider
     ) {
         $this->invoiceRepository = $invoiceRepository;
         $this->orderRepository = $orderRepository;
@@ -38,6 +41,7 @@ class GenerateInvoiceAction
         $this->session = $session;
         $this->urlGenerator = $urlGenerator;
         $this->invoiceCreator = $invoiceCreator;
+        $this->dateTimeProvider = $dateTimeProvider;
     }
 
     public function __invoke(string $id): Response
@@ -47,7 +51,7 @@ class GenerateInvoiceAction
         Assert::notNull($order);
 
         try {
-            $this->invoiceCreator->__invoke($order->getNumber(), new \DateTime());
+            $this->invoiceCreator->__invoke($order->getNumber(), $this->dateTimeProvider->__invoke($order));
 
             $this->session->getFlashBag()->add(
                 'success',

@@ -36,7 +36,7 @@ class InvoiceCreatedProducer
     private function dispatchInvoiceCreatedEvent(InvoiceInterface $invoice): void
     {
         $this->eventBus->dispatch(
-            new InvoiceCreated($invoice, $this->dateTimeProvider->__invoke())
+            new InvoiceCreated($invoice, $this->dateTimeProvider->__invoke($invoice->order()))
         );
     }
 

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+### v0.20.8 (2022-04-26)
+- Pass order to SystemDataTimeProvider
+
 ### v0.20.7 (2022-04-12)
 - Dependency on SklinetSyliusExtendedChannelPlugin
 - Fix due date

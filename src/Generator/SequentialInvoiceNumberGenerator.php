@@ -19,6 +19,8 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\InvoicingPlugin\DateTimeProvider;
 use Sylius\InvoicingPlugin\Entity\InvoiceSequenceInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+
 
 final class SequentialInvoiceNumberGenerator implements InvoiceNumberGenerator
 {
@@ -50,9 +52,9 @@ final class SequentialInvoiceNumberGenerator implements InvoiceNumberGenerator
         $this->numberLength = $numberLength;
     }
 
-    public function generate(): string
+    public function generate(OrderInterface $order): string
     {
-        $invoiceIdentifierPrefix = $this->dateTimeProvider->__invoke()->format('Y');
+        $invoiceIdentifierPrefix = $this->dateTimeProvider->__invoke($order)->format('Y');
         
         /** @var InvoiceSequenceInterface $sequence */
         $sequence = $this->getSequence();
