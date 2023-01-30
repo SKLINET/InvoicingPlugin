@@ -64,7 +64,7 @@ final class ShippingAdjustmentsToLineItemsConverter implements LineItemsConverte
         // Discount
         $discount = $shipment->getAdjustmentsTotal(AdjustmentInterface::ORDER_SHIPPING_PROMOTION_ADJUSTMENT);
         //
-        $subTotal = $netValue + $discount;
+        $subTotal = $netValue;
         $total = $subTotal + $taxAmount;
 
         // Tax rate code
